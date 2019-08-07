@@ -42,6 +42,16 @@ class HTTPResponseAPITests: XCTestCase {
         XCTAssertNil(sut.error)
     }
     
+    func testHeaders() {
+        let headers = ["Content-Type": "application/json", "Authorization": "Bearer ABCDEFG"]
+        let httpResponse = HTTPURLResponse(url: URL(string: "www.ttdp.com")!, statusCode: 200, httpVersion: "1.1", headerFields: headers)
+        sut = HTTPResponse(response: httpResponse)
+        
+        XCTAssertEqual(sut.headers.count, headers.count)
+        XCTAssertEqual(sut.headers["Content-Type"], "application/json")
+        XCTAssertEqual(sut.headers["Authorization"], "Bearer ABCDEFG")
+    }
+    
     func testStatusCode() {
         let httpResponse = HTTPURLResponse(url: URL(string: "www.ttdp.com")!, statusCode: 200, httpVersion: "1.1", headerFields: nil)
         sut = HTTPResponse(response: httpResponse)

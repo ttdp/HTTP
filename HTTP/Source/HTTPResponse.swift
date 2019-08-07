@@ -48,6 +48,10 @@ public struct HTTPResponse: Response {
         return (urlResponse as? HTTPURLResponse)?.statusCode ?? 0
     }
     
+    public var headers: [String: String] {
+        return (urlResponse as? HTTPURLResponse)?.allHeaderFields as? [String: String] ?? [:]
+    }
+    
     /* ✅ */
     public init(data: Data? = nil, url: URL? = nil, response: URLResponse? = nil, error: Error? = nil) {
         self.data = data
