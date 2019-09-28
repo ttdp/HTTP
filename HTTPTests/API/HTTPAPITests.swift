@@ -35,8 +35,10 @@ class HTTPAPITests: XCTestCase {
     func testPut() {
         sut.put(fakePath) { response in }
         sut.put(fakePath, params: ["key": "value"]) { response in }
+        sut.put(fakePath, bodyData: Data()) { response in }
         sut.put(fakePath, headers: ["key": "value"]) { response in }
         sut.put(fakePath, params: ["key": "value"], headers: ["key": "value"]) { response in }
+        sut.put(fakePath, bodyData: Data(), headers: ["key": "value"]) { response in }
         
         let task = sut.put(fakePath) { _ in }
         XCTAssertNotNil(task)

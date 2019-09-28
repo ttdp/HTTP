@@ -64,17 +64,17 @@ public struct HTTP {
     
     /* ✅ */
     @discardableResult
-    public func post(_ path: String, headers: [String: String]? = nil, completion: @escaping (HTTPResponse) -> Void) -> HTTPTask {
+    public func put(_ path: String, bodyData: Data?, headers: [String: String]? = nil, completion: @escaping (HTTPResponse) -> Void) -> HTTPTask {
         guard fakeResponse == nil else {
             completion(fakeResponse!)
             return BlankHTTPTask()
         }
-        return dataRequest(path: path, method: .post, headers: headers, bodyData: nil).go(completion: completion)
+        return dataRequest(path: path, method: .put, headers: headers, bodyData: bodyData).go(completion: completion)
     }
     
     /* ✅ */
     @discardableResult
-    public func post(_ path: String, params: [String: Any]?, headers: [String: String]? = nil, completion: @escaping (HTTPResponse) -> Void) -> HTTPTask {
+    public func post(_ path: String, params: [String: Any]? = nil, headers: [String: String]? = nil, completion: @escaping (HTTPResponse) -> Void) -> HTTPTask {
         guard fakeResponse == nil else {
             completion(fakeResponse!)
             return BlankHTTPTask()

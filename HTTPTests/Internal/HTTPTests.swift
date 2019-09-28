@@ -82,6 +82,12 @@ class HTTPTests: XCTestCase {
             XCTAssertEqual(response.fakeRequest!.params!["key"] as! String, "value")
         }
         
+        let bodyData = "body".data(using: .utf8)
+        sut.put(fakePath, bodyData: bodyData) { response in
+            XCTAssertEqual(response.fakeRequest!.method, .put)
+            XCTAssertEqual(response.fakeRequest!.bodyData, bodyData)
+        }
+        
         sut.put(fakePath, headers: ["key": "value"]) { response in
             XCTAssertEqual(response.fakeRequest!.method, .put)
             XCTAssertEqual(response.fakeRequest!.headers!["key"], "value")
@@ -90,6 +96,12 @@ class HTTPTests: XCTestCase {
         sut.put(fakePath, params: ["key": "value"], headers: ["key": "value"]) { response in
             XCTAssertEqual(response.fakeRequest!.method, .put)
             XCTAssertEqual(response.fakeRequest!.params!["key"] as! String, "value")
+            XCTAssertEqual(response.fakeRequest!.headers!["key"], "value")
+        }
+        
+        sut.put(fakePath, bodyData: bodyData, headers: ["key": "value"]) { response in
+            XCTAssertEqual(response.fakeRequest!.method, .put)
+            XCTAssertEqual(response.fakeRequest!.bodyData, bodyData)
             XCTAssertEqual(response.fakeRequest!.headers!["key"], "value")
         }
         
